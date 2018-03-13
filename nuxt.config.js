@@ -1,4 +1,5 @@
 module.exports = {
+  mode: 'spa',
   /*
   ** Headers of the page
   */
@@ -25,7 +26,11 @@ module.exports = {
     ** Run ESLint on save
     */
     // analyze: false, // https://github.com/erning/hello-nuxt/blob/master/nuxt.config.js#L3
-    vendor: ['element-ui'],
+    vendor: [
+      'element-ui', 
+      'vue-i18n',
+      'web3'
+    ],
     extend (config, { isDev, isClient }) {
       if (isDev && isClient) {
         config.module.rules.push({
@@ -37,10 +42,14 @@ module.exports = {
       }
     }
   },
+  router: {
+    middleware: 'i18n'
+  },
   plugins: [
-    '~plugins/element-ui'
+    '~/plugins/i18n'
   ],
   css: [
+    'normalize.css/normalize.css',
     'element-ui/lib/theme-chalk/index.css'
   ]
 }

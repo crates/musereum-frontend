@@ -1,31 +1,37 @@
 <template lang="pug">
   el-row(type="flex" justify="center" align="middle")
     el-col(:span="12")
-      el-steps(direction='vertical' :active='0')
-        el-step(title='Enter your email' style="flex-basis: 110px")
-          div(slot='description')
-            el-form.demo-dynamic(:model='dynamicValidateForm' ref='dynamicValidateForm' :inline='true')
-              el-form-item(
-                prop='email'
-                :rules="[\
-                  { required: true, message: 'Please input email address', trigger: 'blur' },\
-                  { type: 'email', message: 'Please input correct email address', trigger: 'blur,change' }\
-                ]"
-              )
-                el-input(v-model='dynamicValidateForm.email')
-              el-form-item
-                el-button(type='primary', @click="submitForm('dynamicValidateForm')") Submit
 
-        el-step(title="Verification of email" description="Check the email for a verification link" style="flex-basis: 100px")
-        el-step(title='Recieve your ETM')
+      el-steps(direction='vertical' :active='0')
+        el-step(:title="$t('account_verification.steps[0].title')" style="flex-basis: 110px")
+          div(slot='description')
+            el-form(:model="verifyForm" :rules="rules" v-loading="loading" ref="verifyForm" :inline='true')
+              el-form-item(prop='email')
+                el-input(v-model='verifyForm.email')
+              el-form-item
+                el-button(type='primary', @click="submitForm('verifyForm')") {{ $t('account_verification.submit') }}
+
+        el-step(
+          :title="$t('account_verification.steps[1].title')" 
+          :description="$t('account_verification.steps[1].description')" 
+          style="flex-basis: 100px"
+        )
+        el-step(:title="$t('account_verification.steps[2].title')")
 </template>
 
 <script>
   export default {
     data() {
       return {
-        dynamicValidateForm: {
+        loading: false,
+        verifyForm: {
           email: ''
+        },
+        rules: {
+          email: [
+            { required: true, message: this.$t('validators.email.require'), trigger: 'blur' },
+            { type: 'email', message: this.$t('validators.email.correct'), trigger: 'blur,change' }
+          ],
         }
       };
     },
@@ -33,7 +39,11 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!');
+            this.loading=true
+            setTimeout(() => {
+              this.loading=false
+              alert('submit!');
+            }, 2000)
           } else {
             console.log('error submit!!');
             return false;

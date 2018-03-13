@@ -2,7 +2,7 @@
   div.mu-app
     el-header.mu-header(style='height: 64px')
 
-      el-menu.mu-header-nav(mode='horizontal' @select='handleSelect' active-text-color='transparent')
+      el-menu.mu-header-nav(mode='horizontal' active-text-color='transparent')
         el-menu-item(index='1')
           el-badge.mu-header-badge(:value='100', :max='10')
             el-button(icon='el-icon-news' size='small')
@@ -19,47 +19,36 @@
 
 
     el-container
-      el-aside
-        el-menu.mu-aside-menu(:default-openeds="['1', '3']")
-          el-submenu(index='1')
+      el-aside(width="250px")
+        el-menu.mu-aside-menu
+          el-submenu.mu-sidebar-submenu(index='1')
             template(slot='title')
-              i.el-icon-message
-              | Navigator One
+              .mu-sidebar-submenu__account example@example.com
+              .mu-sidebar-submenu__etm-count 0 ETM
+
             el-menu-item-group
-              template(slot='title') Group 1
               el-menu-item(index='1-1') Option 1
               el-menu-item(index='1-2') Option 2
-            el-menu-item-group(title='Group 2')
-              el-menu-item(index='1-3') Option 3
-            el-submenu(index='1-4')
-              template(slot='title') Option4
-              el-menu-item(index='1-4-1') Option 4-1
-          el-submenu(index='2')
+
+          el-submenu.mu-sidebar-submenu(index='2')
             template(slot='title')
-              i.el-icon-menu
-              | Navigator Two
+              .mu-sidebar-submenu__account example1@example.com
+              .mu-sidebar-submenu__etm-count 0 ETM
+
             el-menu-item-group
-              template(slot='title') Group 1
               el-menu-item(index='2-1') Option 1
               el-menu-item(index='2-2') Option 2
-            el-menu-item-group(title='Group 2')
-              el-menu-item(index='2-3') Option 3
-            el-submenu(index='2-4')
-              template(slot='title') Option 4
-              el-menu-item(index='2-4-1') Option 4-1
-          el-submenu(index='3')
+
+          el-submenu.mu-sidebar-submenu(index='3')
             template(slot='title')
-              i.el-icon-setting
-              | Navigator Three
+              .mu-sidebar-submenu__account example2@example.com
+              .mu-sidebar-submenu__etm-count 0 ETM
+
             el-menu-item-group
-              template(slot='title') Group 1
               el-menu-item(index='3-1') Option 1
               el-menu-item(index='3-2') Option 2
             el-menu-item-group(title='Group 2')
               el-menu-item(index='3-3') Option 3
-            el-submenu(index='3-4')
-              template(slot='title') Option 4
-              el-menu-item(index='3-4-1') Option 4-1
 
 
       el-main
@@ -68,6 +57,7 @@
 
 <script>
   export default {
+    middleware: 'auth',
     data() {
       return {
         accountLock: false
@@ -79,11 +69,6 @@
 <style>
   html {
     font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
-  }
-
-  body {
-    margin: 0;
-    padding: 0;
   }
 
   .mu-app {
@@ -108,5 +93,21 @@
 
   .mu-aside-menu {
     height: 100%;
+  }
+
+  .mu-sidebar-submenu .el-submenu__title {
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+
+  .mu-sidebar-submenu__account {
+    line-height: 1.5;
+  }
+
+  .mu-sidebar-submenu__etm-count {
+    line-height: 1.5;
+    color: #999;
   }
 </style>

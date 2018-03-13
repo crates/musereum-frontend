@@ -1,0 +1,28 @@
+{
+  "auth": {
+    "create": "Create",
+    "login": "Login"
+  },
+  "form": {
+    "email": "Email",
+    "password": "Password"
+  },
+  "account_verification": {
+    "steps": [
+      { "title": "Enter your email" },
+      { "title": "Verification of email", "description": "Check the email for a verification link" },
+      { "title": "Recieve your ETM" }
+    ],
+    "submit": "Submit email"
+  },
+  "validators": {
+    "email": {
+      "require": "Please input email address",
+      "correct": "Please input correct email address"
+    },
+    "password": {
+      "require": "Please input password",
+      "correct": "Length should equal or greater than {min}"
+    }
+  }
+}
